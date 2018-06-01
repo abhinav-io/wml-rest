@@ -8,7 +8,7 @@ var Search = (function() {
     var searchText;
 
     function Search(text) {
-        searchText = text.toLocaleLowerCase();
+        searchText = text.toLowerCase();
     }
 
     function onAsyncSeriesComplete(err, results) {
@@ -19,25 +19,32 @@ var Search = (function() {
         if (Array.isArray(results)) {
             var productCodes = [];
             results.forEach(function(element) {
-                var elementText = JSON.stringify(element).toLocaleLowerCase();
+                var elementText = "";
+                var elem = {};
+                if (typeof element === "string") {
+                    elem = JSON.parse(element);
+                    elementText = element.toLowerCase();
+                } else {
+                    elem = element;
+                    elementText = JSON.stringify(element).toLowerCase();
+                }
                 if (elementText.indexOf(searchText) >= 0) {
-                    productCodes.push(element.itemId);
+                    productCodes.push(elem.itemId);
                 }
             });
             return finalCallback(null, productCodes);
         }
-        finalCallback(new Error('Invalid results returned'), null);
+        return finalCallback(new Error('Invalid results returned'), null);
     }
 
 
     Search.prototype.start = function(callback) {
         var asyncExecutionArray = [];
         if (callback !== void 0) { finalCallback = callback; }
-        debugger;
         for (var loopVar = 0; loopVar < AllProducts.length; loopVar++) {
             var productCode = AllProducts[loopVar];
             console.log("Step 1: " + productCode);
-            var getProductDetail = function(asyncCallback) {
+            var getProductDetail = function(productCode, asyncCallback) {
                 product.getProductDetail(productCode, function(error, productDetail) {
                     if (error != null) {
                         return asyncCallback(error, null);
@@ -45,7 +52,7 @@ var Search = (function() {
                     return asyncCallback(null, productDetail);
                 });
             };
-            asyncExecutionArray.push(getProductDetail);
+            asyncExecutionArray.push(async.apply(getProductDetail, productCode));
         }
         async.series(asyncExecutionArray, onAsyncSeriesComplete);
     };

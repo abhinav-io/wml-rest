@@ -21,7 +21,11 @@
   "dependencies": {
     "async": "^2.6.1",
     "hapi": "~16.x.x",
-    "request": "^2.87.0"
+    "hapi-swagger": "^7.10.0",
+    "inert": "^4.2.1",
+    "joi": "^13.3.0",
+    "request": "^2.87.0",
+    "vision": "^4.1.1"
   },
   "devDependencies": {
     "jshint": "^2.9.5"

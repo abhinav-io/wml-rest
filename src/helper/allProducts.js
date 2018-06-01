@@ -3,7 +3,6 @@ var Config = require('./config');
 var AllProducts = [];
 
 request(Config.getGitHubUrl(), function(error, response, body) {
-    debugger;
     if (error) {
         console.log('An error occurred!');
         console.log('Error : ' + error);
