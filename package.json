@@ -1,28 +1,29 @@
 {
-    "name": "wml-rest",
-    "version": "1.0.0",
-    "description": "Take-Home Challenge",
-    "main": "index.js",
-    "scripts": {
-        "start": "node ./src/app.js",
-        "debug": "node --inspect ./src/app.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/abhi-io/wml-rest.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/abhi-io/wml-rest/issues"
-    },
-    "homepage": "https://github.com/abhi-io/wml-rest#readme",
-    "dependencies": {
-        "async": "^2.6.1",
-        "hapi": "~16.x.x"
-    },
-    "devDependencies": {
-        "jshint": "^2.9.5"
-    }
+  "name": "wml-rest",
+  "version": "1.0.0",
+  "description": "Take-Home Challenge",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "debug": "node --inspect ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhi-io/wml-rest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhi-io/wml-rest/issues"
+  },
+  "homepage": "https://github.com/abhi-io/wml-rest#readme",
+  "dependencies": {
+    "async": "^2.6.1",
+    "hapi": "~16.x.x",
+    "request": "^2.87.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.5"
+  }
 }

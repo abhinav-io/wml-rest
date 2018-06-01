@@ -1,19 +1,24 @@
+var request = require('request');
+var Config = require('./config');
+
 var Product = (function() {
     function Product() {}
-    Product.prototype.init = function(onSuccess, onError) {
-        if (onSuccess === void 0) { onSuccess = function() {}; }
-        if (onError === void 0) { onError = function() {}; }
-        // do some stuff here
-        this.all = "";
-        if (true) {
-            onSuccess();
-        } else {
-            onError();
+
+    Product.prototype.getProductDetail = function(productCode, callback) {
+        console.log("Product.getProductDetail.productCode : " + productCode);
+        if (callback === void 0) {
+            callback = function(err, productDetail) {};
         }
-    };
-    Product.prototype.getProductDetail = function(productCode, onSuccess, onError) {
-        if (onSuccess === void 0) { onSuccess = function() {}; }
-        if (onError === void 0) { onError = function() {}; }
+        request(Config.getProductCodeUrl(productCode), function(error, response, body) {
+            if (error) {
+                console.log('An error occurred!');
+                console.log('Error : ' + error);
+                return callback(error, null);
+            } else if (response && response.statusCode == 200) {
+                return callback(null, body);
+            }
+            return;
+        });
     };
     return Product;
 }());
