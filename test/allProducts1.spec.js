@@ -1,4 +1,4 @@
-var assert = require('assert');
+var chai = require('chai');
 var nock = require('nock');
 var allProducts = null;
 
@@ -9,6 +9,7 @@ var allProducts = null;
  * that is because of how require works. Need to find out if I can force require to reload the file afresh.
  **/
 xdescribe('AllProducts - 1', function() {
+    var assert = chai.assert;
     xdescribe('Before the request completes', function() {
         beforeEach(function(done) {
             nock('https://gist.githubusercontent.com')

@@ -53,7 +53,7 @@ var Server = (function() {
                 var search = new Search(request.params.text);
                 search.start(function(error, response) {
                     if (error) {
-                        throw new Error("An error occurred: " + error);
+                        throw new Error("An error occurred: " + JSON.stringify(error));
                     }
                     return reply(response);
                 });

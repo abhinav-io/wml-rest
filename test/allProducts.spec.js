@@ -1,7 +1,8 @@
-var assert = require('assert');
+var chai = require('chai');
 var allProducts = require('../src/helper/allProducts');
 
 describe('AllProducts', function() {
+    var assert = chai.assert;
     describe('Before the request completes', function() {
         it('allProducts is not null', function() {
             assert.notStrictEqual(allProducts, null);
