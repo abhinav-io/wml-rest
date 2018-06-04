@@ -33,6 +33,7 @@ var Server = (function() {
         this.port = port;
     }
     Server.prototype.init = function() {
+        console.log("Initializing server...");
         hapiServer.connection({ host: this.host, port: this.port });
         hapiServer.register(registration);
         hapiServer.route({
@@ -92,7 +93,7 @@ var Server = (function() {
             config: {
                 description: 'Get Product Details',
                 notes: 'If a matching code is found, an object with all the details is returned.',
-                tags: ['api'], // ADD THIS TAG
+                tags: ['api'],
                 validate: {
                     params: {
                         item: Joi.number().integer().required().description('product to lookup')
@@ -108,14 +109,17 @@ var Server = (function() {
         });
     };
     Server.prototype.start = function(callback) {
-        if (callback === void 0) { callback = function(err) {}; }
-        hapiServer.start((err) => {
+        if (callback == null) { callback = function(err) {}; }
+        hapiServer.start(function(err) {
             if (err) {
-                callback(err);
+                return callback(err);
             }
             console.log('Server running at:', hapiServer.info.uri);
+            return callback(null);
         });
-
+    };
+    Server.prototype.stop = function(callback) {
+        return hapiServer.stop(callback);
     };
     return Server;
 }());

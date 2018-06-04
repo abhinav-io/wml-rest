@@ -18,30 +18,37 @@ var Product = (function() {
      */
     function Product() {}
 
+    /**
+     * Get details for a given product code.
+     * @param {string|number} productCode product code to pull data for
+     * @param {function} callback function(err, productDetail)
+     */
     Product.prototype.getProductDetail = function(productCode, callback) {
-        console.log("Product.getProductDetail.productCode : " + productCode);
-        if (callback === void 0) {
+        // console.log("Product.getProductDetail.productCode : " + productCode);
+        if (callback == null) {
             callback = function(err, productDetail) {};
         }
         /***
          * Added settimeout to stop network thrashing.
          * Despite running the requests serially with async, store service server was still blocking the requests.
-         * 400 was the most apt number
+         * 400+ seemed like an apt delay
          */
         var timeout = 400 + Math.floor(Math.random() * 200) + 1;
-        console.log("timeout: " + timeout);
-        setTimeout(() => {
+        setTimeout(function() {
             request(Config.getProductCodeUrl(productCode), function(error, response, body) {
-                console.log("Requesting data for : " + productCode);
                 if (error) {
-                    console.log('An error occurred!');
-                    console.log('Error : ' + error);
+                    // console.log('An error occurred!');
+                    // console.log('Error : ' + JSON.stringify(error));
                     return callback(error, null);
                 } else if (response && response.statusCode == 200) {
-                    console.log("Got data for : " + productCode);
+                    // console.log("Got data for : " + productCode);
                     return callback(null, body);
                 }
-                return;
+                var err = {
+                    'statusCode': response.statusCode,
+                    'body': body
+                };
+                return callback(err, null);
             });
         }, timeout);
 

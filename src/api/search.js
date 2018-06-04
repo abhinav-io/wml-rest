@@ -7,12 +7,15 @@ var Search = (function() {
     var finalCallback = function(error, products) {};
     var searchText;
 
+    /**
+     * Search constructor that accepts the text to look for.
+     * @param {string} text 
+     */
     function Search(text) {
         searchText = text.toLowerCase();
     }
 
     function onAsyncSeriesComplete(err, results) {
-
         if (err) {
             return finalCallback(err, null);
         }
@@ -38,14 +41,19 @@ var Search = (function() {
     }
 
 
+    /**
+     * Start the search with previously setup text.
+     * @param {function} callback function(error, products)
+     * @param {Object} error error object, if null, products param will be null
+     * @param {Object} products array of product codes
+     */
     Search.prototype.start = function(callback) {
         var asyncExecutionArray = [];
-        if (callback !== void 0) { finalCallback = callback; }
+        if (callback != null) { finalCallback = callback; }
         for (var loopVar = 0; loopVar < AllProducts.length; loopVar++) {
             var productCode = AllProducts[loopVar];
-            console.log("Step 1: " + productCode);
-            var getProductDetail = function(productCode, asyncCallback) {
-                product.getProductDetail(productCode, function(error, productDetail) {
+            var getProductDetail = function(prodCode, asyncCallback) {
+                product.getProductDetail(prodCode, function(error, productDetail) {
                     if (error != null) {
                         return asyncCallback(error, null);
                     }
