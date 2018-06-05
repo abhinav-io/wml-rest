@@ -6,6 +6,7 @@ var Joi = require('joi');
 var Search = require('../api/search');
 var AllProducts = require('../helper/allProducts');
 var Product = require('../helper/product');
+var ProductsCache = require('../helper/productCache');
 
 var Server = (function() {
     var hapiServer = new Hapi.Server();
@@ -65,8 +66,7 @@ var Server = (function() {
             path: '/stop',
             config: {
                 description: 'Stop Server',
-                notes: 'Shuts the server down. Just for experimentation. No one would ever do something like this in production.',
-                tags: ['api']
+                notes: 'Shuts the server down. Just for experimentation. No one would ever do something like this in production.'
             },
             handler: function(request, reply) {
                 hapiServer.stop();
@@ -84,6 +84,31 @@ var Server = (function() {
             },
             handler: function(request, reply) {
                 return reply(AllProducts);
+            }
+        });
+
+        hapiServer.route({
+            method: 'GET',
+            path: '/cache/all',
+            config: {
+                description: 'Get All Cached Products',
+                notes: 'Get All Cached Products'
+            },
+            handler: function(request, reply) {
+                return reply(ProductsCache);
+            }
+        });
+
+        hapiServer.route({
+            method: 'GET',
+            path: '/cache/clear',
+            config: {
+                description: 'Clear All Cached Products',
+                notes: 'Clear All Cached Products'
+            },
+            handler: function(request, reply) {
+                ProductsCache = {};
+                return reply(ProductsCache);
             }
         });
 

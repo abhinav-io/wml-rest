@@ -1,5 +1,6 @@
 var request = require('request');
 var Config = require('./config');
+var ProductsCache = require('./productCache');
 
 var Product = (function() {
 
@@ -28,6 +29,10 @@ var Product = (function() {
         if (callback == null) {
             callback = function(err, productDetail) {};
         }
+
+        if (ProductsCache[productCode]) {
+            return callback(null, ProductsCache[productCode]);
+        }
         /***
          * Added settimeout to stop network thrashing.
          * Despite running the requests serially with async, store service server was still blocking the requests.
@@ -42,6 +47,7 @@ var Product = (function() {
                     return callback(error, null);
                 } else if (response && response.statusCode == 200) {
                     // console.log("Got data for : " + productCode);
+                    ProductsCache[productCode] = body;
                     return callback(null, body);
                 }
                 var err = {
