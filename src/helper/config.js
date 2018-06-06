@@ -11,7 +11,8 @@ var Config = {
             throw new Error('productCode is an invalid number');
         }
         return 'http://api.walmartlabs.com/v1/items/' + productCode + '?format=json&apiKey=kjybrqfdgp3u4yv2qzcnjndj';
-    }
+    },
+    useCache: true
 };
 
 module.exports = Config;

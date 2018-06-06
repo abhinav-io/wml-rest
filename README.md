@@ -78,6 +78,8 @@ Application has been laid out in a simple folder structure mimicing the use.
 
 With a random delay of `var timeout = 400 + Math.floor(Math.random() * 200) + 1;` milliseconds.
 
+_I revisited this delay today, looks like this was only helpful that one day when I ran the tests for the first time._
+
 Response time:
 
 ~~~~
@@ -112,7 +114,9 @@ RESPONSE BYTES (by Content-Type)
 application/json: 28
 ~~~~
 
-With a static delay of `var timeout = 100;` milliseconds.
+With a static delay of `var timeout = 100;` milliseconds. *This was the best delay I was able to identify.*
+
+Running on both my Mac host and Windows VM, `100 ms` gave the best results with no `403`s. I am running both the machines from behind a proxy.
 
 Response time:
 
@@ -240,4 +244,4 @@ Connection: Close
 {"errors":[{"code":403,"message":"Account Over Queries Per Second Limit"}]}
 ~~~~
 
-atfter every 12 requests or so.
+after every 12 requests or so.

@@ -7,6 +7,7 @@ var Search = require('../api/search');
 var AllProducts = require('../helper/allProducts');
 var Product = require('../helper/product');
 var ProductsCache = require('../helper/productCache');
+var config = require('../helper/config');
 
 var Server = (function() {
     var hapiServer = new Hapi.Server();
@@ -84,6 +85,29 @@ var Server = (function() {
             },
             handler: function(request, reply) {
                 return reply(AllProducts);
+            }
+        });
+
+        hapiServer.route({
+            method: 'GET',
+            path: '/cache/use/{enabled}',
+            config: {
+                description: 'Configure application to use or not to use the cached data.',
+                notes: 'Configure application to use or not to use the cached data.',
+                validate: {
+                    params: {
+                        enabled: Joi.boolean().required().description('enabled can only be true or false')
+                    }
+                }
+            },
+            handler: function(request, reply) {
+                if (request.params.enabled === true) {
+                    config.useCache = true;
+                    return reply("Caching enabled...");
+                } else {
+                    config.useCache = false;
+                    return reply("Caching disabled...");
+                }
             }
         });
 

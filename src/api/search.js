@@ -15,6 +15,11 @@ var Search = (function() {
         searchText = text.toLowerCase();
     }
 
+    /**
+     * Final callback function that compiles the data before returning it to the Server module.
+     * @param {Object} err Identifies an error object.
+     * @param {Object} results If no error occurred, results would be an array of productDetails for all product codes.
+     */
     function onAsyncSeriesComplete(err, results) {
         if (err) {
             return finalCallback(err, null);
@@ -22,17 +27,20 @@ var Search = (function() {
         if (Array.isArray(results)) {
             var productCodes = [];
             results.forEach(function(element) {
-                var elementText = "";
-                var elem = {};
-                if (typeof element === "string") {
-                    elem = JSON.parse(element);
-                    elementText = element.toLowerCase();
-                } else {
-                    elem = element;
-                    elementText = JSON.stringify(element).toLowerCase();
-                }
-                if (elementText.indexOf(searchText) >= 0) {
-                    productCodes.push(elem.itemId);
+                if (element != null) {
+                    var elem = {};
+                    if (typeof element === "string") {
+                        elem = JSON.parse(element);
+                    } else {
+                        elem = element;
+                    }
+                    if (elem.name != null && elem.name.toLowerCase().indexOf(searchText) >= 0) {
+                        productCodes.push(elem.itemId);
+                    } else if (elem.shortDescription != null && elem.shortDescription.toLowerCase().indexOf(searchText) >= 0) {
+                        productCodes.push(elem.itemId);
+                    } else if (elem.longDescription != null && elem.longDescription.toLowerCase().indexOf(searchText) >= 0) {
+                        productCodes.push(elem.itemId);
+                    }
                 }
             });
             return finalCallback(null, productCodes);

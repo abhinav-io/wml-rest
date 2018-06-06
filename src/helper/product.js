@@ -30,7 +30,7 @@ var Product = (function() {
             callback = function(err, productDetail) {};
         }
 
-        if (ProductsCache[productCode]) {
+        if (Config.useCache === true && ProductsCache[productCode]) {
             return callback(null, ProductsCache[productCode]);
         }
         /***
@@ -38,7 +38,7 @@ var Product = (function() {
          * Despite running the requests serially with async, store service server was still blocking the requests.
          * 400+ seemed like an apt delay
          */
-        var timeout = 400 + Math.floor(Math.random() * 200) + 1;
+        var timeout = 100;
         setTimeout(function() {
             request(Config.getProductCodeUrl(productCode), function(error, response, body) {
                 if (error) {
@@ -47,7 +47,9 @@ var Product = (function() {
                     return callback(error, null);
                 } else if (response && response.statusCode == 200) {
                     // console.log("Got data for : " + productCode);
-                    ProductsCache[productCode] = body;
+                    if (Config.useCache === true) {
+                        ProductsCache[productCode] = body;
+                    }
                     return callback(null, body);
                 }
                 var err = {
