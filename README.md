@@ -110,39 +110,6 @@ RESPONSE BYTES (by Content-Type)
 --------------
        ~headers~: 195
 application/json: 28
-
-
-ESTIMATED WORLDWIDE PERFORMANCE
---------------
-The following are VERY rough estimates of download times when hitting servers based in Seattle.
-
-US West Coast (Modem - 6KB/sec)
-	RTT:		0.10s
-	Elapsed:	0.10s
-
-Japan / Northern Europe (Modem)
-	RTT:		0.15s
-	Elapsed:	0.15s
-
-China (Modem)
-	RTT:		0.45s
-	Elapsed:	0.45s
-
-US West Coast (DSL - 30KB/sec)
-	RTT:		0.10s
-	Elapsed:	0.10s
-
-Japan / Northern Europe (DSL)
-	RTT:		0.15s
-	Elapsed:	0.15s
-
-China (DSL)
-	RTT:		0.45s
-	Elapsed:	0.45s
-
-
-________________
-Learn more about HTTP performance at http://fiddler2.com/r/?HTTPPERF
 ~~~~
 
 With a static delay of `var timeout = 100;` milliseconds.
@@ -179,38 +146,98 @@ RESPONSE BYTES (by Content-Type)
 --------------
        ~headers~: 227
 application/json: 64
+~~~~
 
+With a static delay of `var timeout = 80;` milliseconds.
 
-ESTIMATED WORLDWIDE PERFORMANCE
---------------
-The following are VERY rough estimates of download times when hitting servers based in Seattle.
-
-US West Coast (Modem - 6KB/sec)
-	RTT:		0.10s
-	Elapsed:	0.10s
-
-Japan / Northern Europe (Modem)
-	RTT:		0.15s
-	Elapsed:	0.15s
-
-China (Modem)
-	RTT:		0.45s
-	Elapsed:	0.45s
-
-US West Coast (DSL - 30KB/sec)
-	RTT:		0.10s
-	Elapsed:	0.10s
-
-Japan / Northern Europe (DSL)
-	RTT:		0.15s
-	Elapsed:	0.15s
-
-China (DSL)
-	RTT:		0.45s
-	Elapsed:	0.45s
-
-
-________________
-Learn more about HTTP performance at http://fiddler2.com/r/?HTTPPERF
+Response time:
 
 ~~~~
+Request Count:   1
+Bytes Sent:      448		(headers:448; body:0)
+Bytes Received:  291		(headers:227; body:64)
+
+ACTUAL PERFORMANCE
+--------------
+
+NOTE: This request was retried after a Receive operation failed.
+
+ClientConnected:	11:32:49.223
+ClientBeginRequest:	11:41:57.340
+GotRequestHeaders:	11:41:57.340
+ClientDoneRequest:	11:41:57.340
+Determine Gateway:	0ms
+DNS Lookup: 		0ms
+TCP/IP Connect:	0ms
+HTTPS Handshake:	0ms
+ServerConnected:	11:41:57.341
+FiddlerBeginRequest:	11:41:57.341
+ServerGotRequest:	11:41:57.341
+ServerBeginResponse:	11:41:57.340
+GotResponseHeaders:	11:42:01.167
+ServerDoneResponse:	11:42:01.167
+ClientBeginResponse:	11:42:01.167
+ClientDoneResponse:	11:42:01.167
+
+	Overall Elapsed:	0:00:03.827
+
+RESPONSE BYTES (by Content-Type)
+--------------
+       ~headers~: 227
+application/json: 64
+~~~~
+
+With a static delay of `var timeout = 70;` milliseconds.
+
+Response time:
+
+~~~~
+Request Count:   1
+Bytes Sent:      448		(headers:448; body:0)
+Bytes Received:  291		(headers:227; body:64)
+
+ACTUAL PERFORMANCE
+--------------
+ClientConnected:	11:32:49.223
+ClientBeginRequest:	11:48:30.215
+GotRequestHeaders:	11:48:30.215
+ClientDoneRequest:	11:48:30.215
+Determine Gateway:	0ms
+DNS Lookup: 		0ms
+TCP/IP Connect:	0ms
+HTTPS Handshake:	0ms
+ServerConnected:	11:48:30.216
+FiddlerBeginRequest:	11:48:30.216
+ServerGotRequest:	11:48:30.216
+ServerBeginResponse:	11:48:33.991
+GotResponseHeaders:	11:48:33.991
+ServerDoneResponse:	11:48:33.991
+ClientBeginResponse:	11:48:33.991
+ClientDoneResponse:	11:48:33.991
+
+	Overall Elapsed:	0:00:03.776
+
+RESPONSE BYTES (by Content-Type)
+--------------
+       ~headers~: 227
+application/json: 64
+~~~~
+
+With a static delay of less than `70` milliseconds threw:
+
+~~~~
+HTTP/1.1 403 Forbidden
+Content-Type: application/json
+Date: Wed, 06 Jun 2018 18:40:18 GMT
+Retry-After: 1
+Server: Mashery Proxy
+X-Error-Detail-Header: Account Over Queries Per Second Limit
+X-Mashery-Error-Code: ERR_403_DEVELOPER_OVER_QPS
+X-Mashery-Responder: prod-j-worker-us-west-1b-07.mashery.com
+Content-Length: 75
+Connection: Close
+
+{"errors":[{"code":403,"message":"Account Over Queries Per Second Limit"}]}
+~~~~
+
+atfter every 12 requests or so.
