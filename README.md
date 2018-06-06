@@ -69,3 +69,148 @@ Application has been laid out in a simple folder structure mimicing the use.
   |- test
   |  | ---- All the files in this folder are created to test the corresponding file.
 ~~~~
+
+----
+
+## Performance
+
+### Response Times Analysis
+
+With a random delay of `var timeout = 400 + Math.floor(Math.random() * 200) + 1;` milliseconds.
+
+Response time:
+
+~~~~
+Request Count:   1
+Bytes Sent:      448		(headers:448; body:0)
+Bytes Received:  223		(headers:195; body:28)
+
+ACTUAL PERFORMANCE
+--------------
+ClientConnected:	11:18:13.923
+ClientBeginRequest:	11:24:20.748
+GotRequestHeaders:	11:24:20.748
+ClientDoneRequest:	11:24:20.748
+Determine Gateway:	0ms
+DNS Lookup: 		0ms
+TCP/IP Connect:	0ms
+HTTPS Handshake:	0ms
+ServerConnected:	11:24:20.749
+FiddlerBeginRequest:	11:24:20.749
+ServerGotRequest:	11:24:20.749
+ServerBeginResponse:	11:24:32.904
+GotResponseHeaders:	11:24:32.904
+ServerDoneResponse:	11:24:32.904
+ClientBeginResponse:	11:24:32.904
+ClientDoneResponse:	11:24:32.904
+
+	Overall Elapsed:	0:00:12.155
+
+RESPONSE BYTES (by Content-Type)
+--------------
+       ~headers~: 195
+application/json: 28
+
+
+ESTIMATED WORLDWIDE PERFORMANCE
+--------------
+The following are VERY rough estimates of download times when hitting servers based in Seattle.
+
+US West Coast (Modem - 6KB/sec)
+	RTT:		0.10s
+	Elapsed:	0.10s
+
+Japan / Northern Europe (Modem)
+	RTT:		0.15s
+	Elapsed:	0.15s
+
+China (Modem)
+	RTT:		0.45s
+	Elapsed:	0.45s
+
+US West Coast (DSL - 30KB/sec)
+	RTT:		0.10s
+	Elapsed:	0.10s
+
+Japan / Northern Europe (DSL)
+	RTT:		0.15s
+	Elapsed:	0.15s
+
+China (DSL)
+	RTT:		0.45s
+	Elapsed:	0.45s
+
+
+________________
+Learn more about HTTP performance at http://fiddler2.com/r/?HTTPPERF
+~~~~
+
+With a static delay of `var timeout = 100;` milliseconds.
+
+Response time:
+
+~~~~
+Request Count:   1
+Bytes Sent:      448		(headers:448; body:0)
+Bytes Received:  291		(headers:227; body:64)
+
+ACTUAL PERFORMANCE
+--------------
+ClientConnected:	11:32:49.223
+ClientBeginRequest:	11:32:49.225
+GotRequestHeaders:	11:32:49.225
+ClientDoneRequest:	11:32:49.225
+Determine Gateway:	0ms
+DNS Lookup: 		0ms
+TCP/IP Connect:	0ms
+HTTPS Handshake:	0ms
+ServerConnected:	11:32:49.226
+FiddlerBeginRequest:	11:32:49.226
+ServerGotRequest:	11:32:49.226
+ServerBeginResponse:	11:32:53.823
+GotResponseHeaders:	11:32:53.823
+ServerDoneResponse:	11:32:53.823
+ClientBeginResponse:	11:32:53.823
+ClientDoneResponse:	11:32:53.823
+
+	Overall Elapsed:	0:00:04.597
+
+RESPONSE BYTES (by Content-Type)
+--------------
+       ~headers~: 227
+application/json: 64
+
+
+ESTIMATED WORLDWIDE PERFORMANCE
+--------------
+The following are VERY rough estimates of download times when hitting servers based in Seattle.
+
+US West Coast (Modem - 6KB/sec)
+	RTT:		0.10s
+	Elapsed:	0.10s
+
+Japan / Northern Europe (Modem)
+	RTT:		0.15s
+	Elapsed:	0.15s
+
+China (Modem)
+	RTT:		0.45s
+	Elapsed:	0.45s
+
+US West Coast (DSL - 30KB/sec)
+	RTT:		0.10s
+	Elapsed:	0.10s
+
+Japan / Northern Europe (DSL)
+	RTT:		0.15s
+	Elapsed:	0.15s
+
+China (DSL)
+	RTT:		0.45s
+	Elapsed:	0.45s
+
+
+________________
+Learn more about HTTP performance at http://fiddler2.com/r/?HTTPPERF
+
+~~~~
